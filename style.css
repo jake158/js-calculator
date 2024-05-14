@@ -1,0 +1,82 @@
+:root {
+    --main-bg: #3C3C3C;
+    --display-text: #E8E8E9;
+    --calculator-bg: #696969;
+    --ac: #F04B50;
+    --ac-hover: #F4797E;
+    --equals: #FFC155;
+    --equals-hover: #FFDFA9;
+}
+
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    color: var(--display-text);
+    background-color: var(--main-bg);
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#container {
+    background-color: var(--calculator-bg);
+    padding: 12px;
+    border-radius: 5px;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+}
+
+#display {
+    height: 80px;
+    vertical-align: middle;
+    text-align: right;
+    line-height: 90px;
+    font-size: 38px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.row {
+    display: flex;
+    flex: 1;
+}
+
+button {
+    text-decoration: none;
+    border: 0px;
+    height: 60px;
+    font-size: 20px;
+    font-weight: light;
+    flex: 1;
+}
+
+#ac {
+    background-color: var(--ac);
+}
+
+#ac:hover {
+    background-color: var(--ac-hover);
+}
+
+#ac:active {
+    background-color: var(--ac);
+}
+
+/* Equal sign button */
+
+#\003D {
+    background-color: var(--equals);
+}
+
+#\003D:hover {
+    background-color: var(--equals-hover);
+}
+
+#\003D:active {
+    background-color: var(--equals);
+}
