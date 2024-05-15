@@ -1,6 +1,7 @@
 'use strict';
 const buttons = document.querySelectorAll('button');
 const display = document.querySelector('#display');
+const maxDisplayLength = 14;
 
 let previousNum = 0;
 let operator = null;
@@ -39,8 +40,16 @@ function clearDisplay() {
     currNum = 0;
 }
 
-function updateDisplay() {
-    display.textContent = +parseFloat(currNum).toPrecision(11);
+function updateDisplay(text=null) {
+    if (isNaN(currNum)) {
+        display.textContent = 'Error';
+        return;
+    }
+    let toDisplay = +parseFloat(currNum).toPrecision(maxDisplayLength - 1);
+    if (toDisplay.toString().length > maxDisplayLength) {
+        toDisplay = toDisplay.toExponential(maxDisplayLength - 7);
+    }
+    display.textContent = toDisplay;
 }
 
 function square() {
@@ -59,26 +68,62 @@ function addDigit(choice) {
 }
 
 function processOperator(choice) {
-    // Implement
-    console.log(choice);
+    if (operator != null) {
+        operate();
+    }
+    operator = choice;
+    previousNum = currNum;
+    currNum = 0;
 }
 
 function operate() {
     if (operator == null) {
         return;
     }
-    switch (choice) {
+    switch (operator) {
         case 'mod':
+            mod();
             break;
         case '/':
+            divide();
             break;
         case '*':
+            multiply();
             break;
         case '-':
+            subtract();
             break;
         case '+':
+            add();
             break;
         default:
             console.error("Unknown operator");
     }
+    operationDone();
+}
+
+function mod() {
+    currNum = previousNum % currNum;
+}
+
+function divide() {
+    currNum = previousNum / currNum;
+}
+
+function multiply() {
+    currNum = previousNum * currNum;
+}
+
+function subtract() {
+    currNum = previousNum - currNum;
+}
+
+function add() {
+    currNum = +previousNum + +currNum;
+}
+
+function operationDone() {
+    operator = null;
+    previousNum = 0;
+    updateDisplay();
 }
