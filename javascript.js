@@ -29,27 +29,9 @@ function process(choice) {
             operate();
             break;
         default:
+            // Test returns true on digits '0'-'9' and '.'
             return /^[0-9\.]$/.test(choice) ? addDigit(choice) : processOperator(choice);
     }
-}
-
-function clearDisplay() {
-    display.textContent = '0';
-    previousNum = 0;
-    operator = null;
-    currNum = 0;
-}
-
-function updateDisplay(text=null) {
-    if (isNaN(currNum)) {
-        display.textContent = 'Error';
-        return;
-    }
-    let toDisplay = +parseFloat(currNum).toPrecision(maxDisplayLength - 1);
-    if (toDisplay.toString().length > maxDisplayLength) {
-        toDisplay = toDisplay.toExponential(maxDisplayLength - 7);
-    }
-    display.textContent = toDisplay;
 }
 
 function square() {
@@ -66,6 +48,26 @@ function addDigit(choice) {
     currNum += choice;
     updateDisplay();
 }
+
+function updateDisplay() {
+    if (isNaN(currNum)) {
+        display.textContent = 'Error';
+        return;
+    }
+    let toDisplay = +parseFloat(currNum).toPrecision(maxDisplayLength - 1);
+    if (toDisplay.toString().length > maxDisplayLength) {
+        toDisplay = toDisplay.toExponential(maxDisplayLength - 7);
+    }
+    display.textContent = toDisplay;
+}
+
+function clearDisplay() {
+    display.textContent = '0';
+    previousNum = 0;
+    operator = null;
+    currNum = 0;
+}
+
 
 function processOperator(choice) {
     if (operator != null) {
